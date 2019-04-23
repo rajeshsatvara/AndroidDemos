@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +39,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 viewModel.addValue();
-                VMcounter.setText(String.valueOf(viewModel.getCounter()));
+//                VMcounter.setText(String.valueOf(viewModel.getCounter()));
+            }
+        });
+
+        // live data Added 3
+        viewModel.getLiveCounter().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                // update UI using LiveData.
+                VMcounter.setText(String.valueOf(integer));
             }
         });
     }
